@@ -1,6 +1,6 @@
 # SBG-TIR OTTER Level 4 Volcanic Activity (L4 VA) Data Product Algorithm
 
-Michael S. Ramsey (he/him)<br>
+[Michael S. Ramsey](https://github.com/michaelsramsey) (he/him)<br>
 [mramsey@pitt.edu](mailto:mramsey@pitt.edu)<br>
 University of Pittsburgh
 
