@@ -18,17 +18,8 @@ University of Texas Austin
 # Abstract
 The 2017-2027 Decadal Survey for Earth Science and Applications from Space (ESAS 2017) was released in January 2018. ESAS 2017 was driven by input from the scientific community and policy experts and provides a strategic vision for the next decade of Earth observation that informs federal agencies responsible for the planning and execution of civilian space-based Earth-system programs in the coming decade. These include the National Aeronautics and Space Administration (NASA), the National Oceanic and Atmospheric Administration (NOAA), and the U.S. Geological Survey (USGS). NASA has, thus far, utilized this document as a guide to inform exploration of new Earth mission concepts that are later considered as can-didates for fully funded missions. High-priority emphasis areas and targeted observables include global-scale Earth science questions related to hydrology, ecosystems, weather, climate, and solid earth. One of the Designated Observables (DO’s) identified by ESAS 2017 was Surface Biology and Geology (SBG) with a goal to acquire concurrent global hyperspectral visible to shortwave infrared (VSWIR; 380–2500 nm) and multispectral midwave and thermal infrared (MWIR: 3–5 μm; TIR: 8–12 μm) image data at high spatial resolution (~30 m in the VSWIR and ~ 60 m in the TIR) at sub-monthly temporal resolution globally. The final sensor characteristics will be determined during the mission formulation phase, but ESAS 2017 provides guidance for a VSWIR instrument with 30–45 m pixel resolution, ≤16 day global revisit, SNR > 400 in the VNIR, SNR > 250 in the SWIR, and 10 nm sampling in the range 380–2500 nm. It also recommends a TIR instrument with more than five channels in 8–12 μm, and at least one channel at 4 μm, ≤60 m pixel resolution, ≤3 day global revisit, and noise equivalent delta temperature (NEdT) ≤0.2 K (NASEM, 2018; Schimel et al., 2020). Alone, SBG will provide a comprehensive global monitoring for multiple scientific disciplines. Complemented with systems like Landsat and Sentinel-2 VSWIR, global change processes with faster than 16-day global change rates can be mapped. Further, complimented with planned TIR systems such as LSTM and TRISHNA, the temporal revisit could be as frequent as 1-day at the equator, making the system excellent for tracking dynamic thermal features and hazards. This document will grow to fully describe the planned Level-4 Volcanic Activity (VA) product for the SBG TIR data.
 
-_______________________________________________________________________________________________________________________
-<i>This repository will gradually expand to contain the Surface Biology and Geology Thermal Infrared (SBG-TIR) OTTER level 4 volcanic activity (L4-VA) data product algorithm.</i>
-_______________________________________________________________________________________________________________________
-
-<!-- The SBG evapotranspiration product combines the [surface temperature and emissivity observations from the OTTER sensor](https://github.com/sbg-tir/SBG-TIR-L2-LSTE) with the [NDVI and albedo estimated by STARS](https://github.com/sbg-tir/SBG-TIR-L2-STARS), estimates near-surface meteorology by downscaling GEOS-5 FP to these three high resolution images, and runs these variables through a set of surface energy balance models. -->
-
-<!-- The repositories for the evapotranspiration algorithms are located in the [JPL-Evapotranspiration-Algorithms](https://github.com/JPL-Evapotranspiration-Algorithms) organization. -->
 
 ## 1. Introduction to Data Products
-
-The Surface Biology and Geology (SBG) thermal infrared (TIR) instrument – termed the Observing Terrestrial Thermal Emission Radiometer (OTTER) consists of a TIR multispectral scanner with six spectral bands operating between 8.0 and 13.0 µm and two mid-infrared (MIR) bands between 3.0 and 5.0 µm, with a 60 m pixel resolution, an equatorial three day revisit, and a noise equivalent delta temperature (NEdT) ≤0.2 K (NASEM, 2018; Schimel et al., 2020). The TIR data will be acquired with a wide swath width of 935 km (60) from an altitude of ~700 km. OT-TER instrument design and data derive their heritage from the ECOSTRESS instrument, which is a five-channel multispectral TIR scanner that was launched to the International Space Station (ISS) in June 2018. ECOSTRESS has a 70-m spatial resolution with a wide swath width and revisit time that is variable between 3-5 days on average (Table 1).
 
 | **Instrument** | **Platform** | **Resolution (m)** | **Revisit (days)** | **Daytime overpass** | **TIR bands (8-12.5 µm)** | **Launch** |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -41,6 +32,7 @@ The Surface Biology and Geology (SBG) thermal infrared (TIR) instrument – term
 | VIIRS | Suomi-NPP | 750 | Daily | 1:30 / 13:30 | 4 | 2011 |
 | MODIS | Terra/Aqua | 1000 | Daily | 10:30 / 13:30 | 3 | 1999/2002 |
 | GOES | Multiple | 4000 | Daily | Every 15 min 2 | 2000 |
+
 *Table 1. SBG measurement characteristics compared to other operational and planned (*) spaceborne TIR instru-ments 1*
 
 This document outlines the theory and methodology for generating the OTTER Level-4 (L4) Volcanic Activity (VA) product. The VA product is only applied to a 50 km subset of the OTTER data centered on each of the world’s active and potentially active volcanoes (REFS). As such, it represents a small data volume. The VA uses the L2 land surface and emissivity (LSTE) product derived from the six TIR spectral bands to characterize the composition of volcanic plumes. The LSTE products are retrieved from the surface spectral radiance, which is obtained by atmospherically correcting the at-sensor spectral radiance. The VA also uses the L2 radiance at sensor product for the MIR and TIR to derive volcanic thermal flux.
@@ -62,6 +54,7 @@ The remainder of the document will discuss the SBG instrument characteristics, p
 | TIR-4 | 10.30 | 300 | 50 | 50 | 20 | 20 | ≤0.5@275 | ≤0.2@275 | 200-500 |
 | TIR-5 | 11.35 | 300 | 100 | 50 | 20 | 20 | ≤0.5@275 | ≤0.2@275 | 200-500 |
 | TIR-6 | 12.05 | 300 | 100 | 50 | 20 | 20 | ≤0.5@275 | ≤0.2@275 | 200-500 |
+
 *Table 2: SBG final band positions and characteristics.*
 
 ### 2.2. Radiometer
@@ -108,6 +101,7 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Water Coverage | n/a |
 | Open Ocean | n/a |
 | Compression | 2:1 lossless |
+
 *Table 3. SBG TIR instrument and measurement characteristics.*
 
 ##	3. Volcanic Plume Theory and Methodology
@@ -118,8 +112,8 @@ We detect and map volcanic plumes based on the absorption of TIR radiance passin
 
 At the spectral resolution of SBG the spectrum of sulfate (SO4) aerosols (Fig. 2d) has fea-tures similar to those of SO2 (absorption in TIR-1 through TIR-3) and ash (stronger absorption at TIR-5 relative to TIR-6). The concave inflection in sulfate transmission near 10.5 m, covered by TIR-4, is not found in the SO2 or ash spectra. Similarly, TIR-4 covers a concave inflection in the transmission of ice (Fig. 2e). We will use TIR-4 to discriminate sulfate aerosols from SO2 gas, identify ice-mode meteorological clouds, and detect ice-coated particles of silicate ash.
 
-
 ![image](media/image3.png)
+
 *Figure 2. Simulated transmission spectra for (a) water vapor, (b) sulfur dioxide (SO2), (c) silicate ash, (d) sulfate (SO4) aerosol, and (e) ice, superimposed on the nomi-nal positions of the OTTER TIR channels*
 
 We do not measure the transmission of plumes directly and must infer the plume transmis-sion from the radiance at the sensor – or observed radiance - using radiative transfer (RT) model-ing. The atmosphere emits and absorbs TIR radiance (Fig. 3), and the observed radiance includes the radiance welling up through the atmosphere (path radiance) and fraction of down-welling, or sky, radiance reflected off the surface and transmitted back up to the sensor. The observed radiance is a function of many factors, including the satellite, or view, zenith angle (VZA), surface tempera-ture, emissivity, and elevation, plume altitude, or height, thickness, and SO2 concentration, and ver-tical distributions of atmospheric temperature and water vapor (H2O). These factors are input to the RT model to derive estimates of the observed radiance, and we vary the surface temperature and SO2 concentration to improve the fit between the observed and estimated radiance spectra.
@@ -132,6 +126,7 @@ Our global mapping strategy will leverage key technological innovations develope
 ![image](media/image4.png)
 
 *Figure 3. Plume detection through transmission [t(λ)] based on the attenuation of surface radiance [ε(λ) B(λ,To)] passing through the plume enroute to the sensor:*
+
 
 $$L(A, T_0) = f(\alpha) B(\alpha, T_0) + [1 - \alpha(\alpha)] D(0)^{\alpha}(T_0) + U(\lambda)$$
 
@@ -147,8 +142,8 @@ The SO~2~ Index (Krotkov et al., 2021) is a proxy for SO~2~ absorption, and indi
 
 To verify that the SO~2~ Index will be effective at detecting plumes over a wide range of plume heights and atmospheric conditions we processed VIIRS observations of plumes from Raikoke (Kurile Islands), Bardarbunga (Iceland), Lewotolo (Indonesia), and Kilauea Volcanoes (Fig. 4). This set of test cases features plumes in sub-Arctic and Tropical climate zones, at heights ranging from 2 to 13 km, and H~2~O content (expressed as total precipitable water) between 12 and 43 mm of H~2~O. Our analysis indicates that the scaling range for the SO~2~ Index (2 -- 15 K) provided successful plume detections for each test case.
 
-figu
-
+![image](media/image5.png)
+*Figure 4. The SO2 Index is a version of the BTD at 8.7 µm (VIIRS M14) scaled between 2 and 15 K. The cut-off at 2 K improves the discrimination of SO2 from water vapor (H2O) absorption, as H2O absorbs more strongly at 8.7 µm than at 11 or 12 µm. The upper limit of 15 K captures all but the strongest SO2 absorption without saturating the index. To test this range of scales, we analyzed VIIRS observations of plumes from (a) Raikoke (Kurile Islands), (b) Bardarbunga, (c) Lewotolo (Indonesia), and (d) Kilauea Volcanoes. This set of test cases features plumes in sub-Arctic and Tropical climate zones, at heights ranging from 2 to 13 km, and H2O content (expressed as total precipitable water) between 12 and 43 mm of H2O. The SO2 plumes were detected successfully in each test case.*
 
 ### Re-Use of Atmospheric Spectra 
 
@@ -160,7 +155,7 @@ Unlike a conventional LUT, the hash table is generated dynamically, and the numb
 
 Surface temperature and emissivity can vary widely within a satellite scene and, to promote the re-use of cached spectra, we exclude surface temperature and emissivity in the generation of hash tables. For a line-of-sight (LOS) through the atmosphere (Fig. 4), the observed TIR radiance, L~s~, can be described with a simplified version of Eq. 1:
 
-L~s~(λ, T~o~) = {ε(λ)B(λ, T~o~) + \[1 - ε(λ)\]L~d~(λ)}τ(λ) + L~u~(λ), (2)
+$$Q_{\text{con}} = h \cdot A \cdot \left(T_{\text{s}} - T_{\text{a}}\right)$$
 
 where T~o~ represents the surface temperature, ε(λ) represents the surface emissivity, B(λ, T~o~) represents the Planck Blackbody function, τ(λ) represents the spectral transmittance of the atmosphere, and L~u~(λ) and L~d~(λ) represent the upwelling path and downwelling sky radiance produced by the atmosphere. To simplify notation, we have omitted the functional dependence of these parameters on the VZA, and note that τ(λ), L~u~(λ), and L~d~(λ) are integrals over the LOS.
 
@@ -170,8 +165,9 @@ We cache the atmospheric spectra, τ(λ), L~u~(λ), and L~d~(λ), as described i
 
 The Transmission-Mode Retrievals are an extension of the Radiance Reconstruction approach. Conventional, or Full-Mode, RT modeling generates τ(λ), L~u~(λ), and L~d~(λ), and total LOS radiance spectra (Eq. 2), whereas Transmission-Mode RT modeling generates only τ(λ). The L~u~(λ), and L~d~(λ) spectra are necessary for the estimation of surface temperature. If we assume that these components are not sensitive to changes in SO~2~ concentrations, we can employ Transmission-Mode modeling and re-use the L~u~(λ), and L~d~(λ) spectra from our temperature estimations to reconstruct observed radiance for our estimations of SO~2~ concentration. Our testing of Transmission-Mode Retrievals (Fig. 5) indicate that we can achieve 25-50% reductions in processing time with no significant losses in accuracy.
 
-figure 
+![image](media/image6.png) 
 
+*Figure 5. We are most interested in the absorption of surface radiance transmitted through the plume and can assume that the upwelling and downwelling atmospheric components are not sensitive to SO2 concentrations. Full-mode RT modeling generates the sky, path, and surface radiance, and is necessary for the estimation of surface temperature. Transmission-mode RT modeling generates LOS transmission, simplifying the calculations. Our comparison of simulated (a) Full-Mode and (b) Transmission-Mode Retrievals indicates no significant losses in accuracy.  In this simulation, the Transmission-Mode retrievals achieved a 47% reduction (141.7 vs. 267.5 s) in processing time.*
 
 ## Environmental Sources of Uncertainty
 
@@ -182,7 +178,9 @@ Given the dependence of observed radiance on properties of the surface and atmos
 The 60-m spatial resolution of OTTER will allow us to map the source vents for SO~2~ plumes. With this ability, we must account for the effects of land surface emissivity on the observed radiance spectra (Fig. 4) and, ultimately, SO~2~ retrievals. The assumption of blackbody emissivity for exposed, or non-vegetated, surfaces will often lead to false detections of SO~2~. The problem of false detections is most significant in arid regions, which feature quartz-rich sand and sulfate-rich dry lake deposits. At the coarse spectral resolution of SBG, the emissivity spectra of quartz sand and sulfate minerals are very similar to the absorption spectrum of SO~2~ (Fig. 6).
 
 
-figure 
+![image](media/image10.png) 
+ 
+ *Figure 6.  Surface emissivity is a confounding factor for SO2 detection, as demonstrated by model spectra (solid lines) generated for SO2-free atmospheric profiles over simulated surface compositions of (a) quartz sandstone, (b) pahoehoe lava from Kilauea Volcano, and (c) gypsum. Assuming the surfaces are blackbodies (emissivity = 1), attempts to fit the model spectra by varying only surface temperature fail (dashed lines). The fit improves if SO2 is introduced as a free parameter (broken lines), with the penalty of false, or apparent, SO2 detections. The false detections are largest for sandstone and gypsum, due to the overlap between emissivity minima and SO2 absorption. As a rule, the assumption of black-body emissivity for exposed (non-vegetated) surfaces will lead to false detections of SO2.*
 
 
 
@@ -192,7 +190,9 @@ The impact of the blackbody assumption on radiance (Fig. 6) is indicated by the 
 
 We can minimize the impact of surface emissivity on the detection of SO~2~ through an explicit correction for surface emissivity, as demonstrated with VIIRS data from Mt. Etna, Sicily (Fig. 7). The SO~2~ Index delineates the plume (yellow circle, Fig. 7a), but we find much larger index values - indicating larger BTD - over North Africa due to deposits of quartz-rich sand. We eliminate most of the emissivity related BTD enhancements by dividing the observed radiance spectra by emissivity spectra prior to calculating the BTD (Fig. 7b). The emissivity correction did not eliminate the enhancement of BTD due to H~2~O absorption, which was stronger at the margins of the scene (VZA ≥ 50°) due to the longer optical paths through the atmosphere. We attenuate the BTD at the scene margins by applying a gradient, or ramp, as a function of VZA (Fig. 7b). The ramp function preserves some of the information in the scene margins, as opposed to cutting off the BTD associated with larger VZA.
 
-figure 
+![image](media/image11.png) 
+ 
+ *Figure 7. Surface emissivity and water vapor (H2O) absorption are confounding factors for SO2 detection, as demonstrated by VIIRS-N20 TIR data acquired over Mount Etna on 27 Dec 2018 at 11:48 UTC.  (a) The emissivity of quartz sandstone (Fig. 5a), together with water vapor absorption (Fig. 1a), mimic SO2 absorption and result in false detections of SO2. (b) We minimize the false detections by applying emissivity correction and a gradient function scaled to the satellite, or view, zenith angle (VZA).*
 
 
 We simulated VIIRS (NOAA20) emissivity spectra for this scene from the Combined ASTER MODIS Emissivity over Land (CAMEL) database (Loveless et al., 2021; Borbas et al., 2018; Feltz et al., 2018). The global CAMEL spectra are available as a monthly climatology for the Years 2000 -- 2016, with a grid spacing of \~5 km. For the PGS we will generate custom emissivity databases corresponding to the spectral channels of OTTER, and then provide emissivity spectra to the PGS on demand by indexing the databases by time (i.e., month) and location.
@@ -205,9 +205,9 @@ Atmospheric profiles of temperature and water vapor (H~2~O) content are critical
 
 The agreement between the derived and model temperature profiles and the radiosonde temperature profile is very good (Fig. 8a), although neither the radiosonde nor the MODIS profiles provide temperature information for altitudes above 35 km (red circle). However, there are significant differences between the H~2~O profiles. At the altitude of 2 km (a typical altitude for Kilauea plumes) the MERRA-2 reanalysis (Fig. 8b) over-estimated the H2O by 22%, relative to the Hilo radiosonde, and the MODIS and AIRS profiles (Fig. 8c) under-estimated the H~2~O by 56%. The overestimation of H2O led to overestimation of SO2, and the under-estimation of H~2~O led to under-estimation of SO~2~.
 
-figure
+![image](media/image12.png) 
 
-
+*Figure 8. Uncertainties in our knowledge of atmospheric temperature and H2O content translate into uncertainties in our SO2 estimates. Here we compare temperature and H2O profiles measured by a radiosonde launched from Hilo, Hawaii (6 May 2018, 00:00 UTC) with corresponding profiles derived from AIRS (red) and MODIS (blue) data and model output from MERRA-2 reanalysis (yellow). (a) The derived and model temperature profiles agree well with the radiosonde temperature profile. Neither the radiosonde nor the MODIS profiles provide temperature information for altitudes above 35 km (red circle). The estimation of water vapor is more challenging. (b) The MERRA-2 reanalysis over-estimates the H2O at 2 km (dashed line), a typical altitude for Kilauea plumes, by 22%, relative to the radiosonde. (c) The MODIS and AIRS profiles under-estimate the H2O by 56%.*
 
 
 Recognizing that we will never have perfect knowledge of atmospheric conditions, we will opt for the consistent and easily accessible atmospheric profiles provided by numerical weather prediction (NWP) models. Specifically, we will incorporate the Forward Processing for Instrument Teams (FP-IT) products distributed by the NASA Global Modeling and Assimilation Office (GMAO) as part of the Goddard Earth Observation System Version 5 (GEOS-5) family of models. GEOS-5 FP-IT was designed specifically to provide long-term and reproducible characterization of atmospheric conditions for instrument science teams, and current clients of FP-IT include MODIS, OMI, OMPS, and the Ecosystem Spaceborne Thermal Radiometer Experiment on Space Station (ECOSTRESS). FP-IT will also support retrospective analyses of historic satellite data records.
@@ -220,7 +220,9 @@ The strength of SO~2~ absorption is a function of the gas concentration within a
 
 
 
-figure 
+![image](media/image13.png) 
+
+*Figure 9. TIR-based estimates of SO2 column density are sensitive to the model altitude, or height, of the plume, as demonstrated by this analysis of VN20 data for the recent eruption of Kilauea Volcano. A decrease in model plume height from (a) 2.7 to (b) 1.52 km resulted in the loss of ~ 1 x 106 kg of SO2 from the apparent Total Mass.*
 
 
 
@@ -231,7 +233,9 @@ For most situations, the plume heights will not be known prior to the automated 
 
 
 
-figure 
+![image](media/image14.png) 
+
+*Figure 10. Misfit surface demonstrates the influence of surface (ground) temperature and SO2 concentration on observed radiance. (a) The temperature is well-constrained by the observations, as shown by a profile parallel to the temperature axis. The misfit surface has steep gradients to the “true” surface temperature (305 K). (b) The SO2 concentration is poorly constrained, by the observations, as shown by a profile parallel to the SO2 axis. The misfit surface has shallow gradients, 10x shallower than the temperature gradients, to the “true” concentration (10 mg/m3). The lack of constraint on SO2 concentration is a challenge for the simultaneous estimation of temperature and concentration. Our 2-step approach is to estimate the temperature corresponding to a SO2 concentration of 0 and then use this temperature to estimate the concentration.*
 
 
 
@@ -250,8 +254,10 @@ The principal input data for the estimation procedures are Level 1B (L1B) produc
 Here we present an overview of the Product Generation System, or PGS (Fig. 11), followed by more detailed discussions of components of the system. We demonstrate the processing flow with an analysis of MODIS-Aqua (MYD) observations of Bardarbunga Volcano on 5 September 2014.
 
 
-figure 
+![image](media/image15.png) 
+![image](media/image16.png) 
 
+*Figure 11. Demonstration of the Product Generation System (PGS) with MYD observations of the Bardarbunga Eruption on 5 Sept 2014 (03:25 UTC). The SO2 Index Map (a), based on BTD, restricts the initial RT modeling to likely plume locations. The Surface Temperature Map (b) is based on RT modeling that does not incorporate the presence of plumes or meteorological (met) clouds. The Misfit Map (c) that results from temperature estimation indicates the location of plumes and met clouds. The Plume Location Map (d), based on cloud-screening and thresholding of misfit values, restricts the RT-based estimation of SO2 Column Density (e) to the most likely plume locations. The plume locations are not apparent in the Surface Temperature (b) or Final Misfit Maps (f), indicating that the temperature and SO2 estimates were not biased systematically.*
 
 The SO~2~ Index Map (Fig. 11a) restricts the initial round of RT modeling to likely plume locations and, in this example, eliminates 78% of the pixels in the MYD scene from further consideration. Our estimation of surface temperature (Fig. 11b) requires a single Full-Mode run of the RT model. We do not consider the presence of volcanic plumes or meteorological (met) clouds when estimating temperature and, accordingly, the temperature misfit map (Fig. 11c) indicates the locations of plumes and met clouds.
 
@@ -285,7 +291,7 @@ Machine Learning (ML) modeling has been applied to the ASTAD data using a convol
 
 The radiative heat flux of volcanic surfaces (e.g., edifices, lava domes, lava flows, plumes) are calculated with respect to surface kinetic temperature and emissivity. The methods used to calculate the radiant flux follow prior approaches described using satellite and ground based TIR datasets (Harris, 2013). Radiant heat fluxes (Φ~rad~) are calculated using the OTTER derived surface temperature (T~s~), ambient surface temperature (T~a~), and spectral emissivity (ε):
 
-Φ~rad~ = ε ∗ σ (T~s~^4^ − T~a~^4^) ∗ A
+$$L(A, T_0) = f(\alpha) B(\alpha, T_0) + [1 - \alpha(\alpha)] D(0)^{\alpha}(T_0) + U(\lambda)$$
 
 where σ is the Stefan-Boltzmann constant in Wm^−2^ K^−4^ and A is pixel area in m^2^.
 
@@ -331,10 +337,10 @@ The temperature estimation procedure is weighted to prevent underestimates (Fig.
 
 The SO~2~ estimates are very sensitive to the temperature contrast (Fig. 12c). The errors increase (up to 40%) with decreasing plume height, which results in decreasing temperature contrast.
 
-  ![Chart, line chart
-  Description automatically generated](./media/image17.jpeg){width="6.08125in" height="4.15in"}
 
-  **Figure 12. Sensitivity of surface temperature (top row) and SO~2~ concentration (bottom row) to errors in our knowledge of plume height (left column) and atmospheric water vapor (right column). The true values for height and water vapor scaling factor are indicated with the vertical lines. We use plume height to parameterize the temperature contrast between the plume (assumed to be at ambient air temperature) and underlying surface. (a) The temperature estimation procedure is weighted to prevent underestimates, and the estimates are insensitive (± 0.4%) to the plume height. (b) Decreasing water vapor increases atmospheric transmission and lower surface temperatures are required to produce the observed radiance. Conversely, increasing water vapor decreases transmission and higher surface temperatures are required to produce the required radiance. However, the estimation errors are \< 0.5%. (c) The SO~2~ estimates are very sensitive to the temperature contrast. The errors increase (up to 40%) with decreasing plume height, which results in decreasing temperature contrast. The errors decrease (\< 20%) with increasing plume height, which results increasing temperature contrast. (d) The apparent decrease surface temperature due to decreasing water vapor increases the SO~2~ estimates. Conversely, the apparent increase in surface temperature due to increasing water vapor decreases the SO~2~ estimates. The maximum estimation error approaches 20% but is generally \< 10%.**
+![image](media/image17.png) 
+
+*Figure 12. Sensitivity of surface temperature (top row) and SO2 concentration (bottom row) to errors in our knowledge of plume height (left column) and atmospheric water vapor (right column). The true values for height and water vapor scaling factor are indicated with the vertical lines. We use plume height to parameterize the temperature contrast between the plume (assumed to be at ambient air temperature) and underlying surface. (a) The temperature estimation procedure is weighted to prevent underestimates, and the estimates are insensitive (± 0.4%) to the plume height. (b) Decreasing water vapor increases atmospheric transmission and lower surface temperatures are required to produce the observed radiance. Conversely, increasing water vapor decreases transmission and higher surface temperatures are required to produce the required radiance. However, the estimation errors are < 0.5%. (c) The SO2 estimates are very sensitive to the temperature contrast. The errors increase (up to 40%) with decreasing plume height, which results in decreasing temperature contrast. The errors decrease (< 20%) with increasing plume height, which results increasing temperature contrast. (d) The apparent decrease surface temperature due to decreasing water vapor increases the SO2 estimates. Conversely, the apparent increase in surface temperature due to increasing water vapor decreases the SO2 estimates. The maximum estimation error approaches 20% but is generally < 10%.*
 
 
 
@@ -344,16 +350,15 @@ The errors decrease (\< 20%) with increasing plume height, which results increas
 
 The OTTER instrument is anticipated to have an NEΔT of 0.2 K at 300 K, which corresponds to an average NEΔL of 0.030917 Wm^-2^sr^-2^µm^-1^. To evaluate the sensitivity of the algorithms to a reduction in instrument performance on orbit the NEΔT is increase to 1.0 K at increments of 0.2 K.
 
-  -------------------------------------------------------------------------------------------------------------------------------
-  ![](./media/image18.png){width="6.5in" height="4.274305555555555in"}
-  -------------------------------------------------------------------------------------------------------------------------------
-  **Figure 13: Modeled SBG NEΔT versus scene temperature for the two MIR and six TIR bands with time delay integration (TDI).**
+![image](media/image18.png) 
 
-  -------------------------------------------------------------------------------------------------------------------------------
+*Figure 13: Modeled SBG NEΔT versus scene temperature for the two MIR and six TIR bands with time delay integration (TDI).*
 
 The results of degradation in instrument performance on-orbit are shown in figure 14. For ASTAD a decrease in OTTER instrument performance would result in a slight decrease in precision (\<2%) but a significant increase in F1 score and Recall (\<35%). A decrease in on-orbit OTTER instrument performance from 0.2 to 1.0 K NEΔT would result in accuracy and precision metrics remaining mostly constant within ±7% (Figure 14).
 
-![](./media/image19.png){width="6.5in" height="3.952777777777778in"}
+![image](media/image19.png) 
+
+*Figure 14: The algorithm detection precision and accuracy changes in ASTAD and ASTAD-ML as a result of OTTER instrument on-orbit performance degradation. *
 
 2.  **Total Uncertainty**
 
@@ -363,20 +368,22 @@ T.B.D. once final algorithm choice is determined
 
 |  **SDS** | **Long Name** | **Data type** | **Units** | **Valid Range** | **Fill Value** | **Scale Factor** | **Offset** |   **Group**  | **SDS** |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-|  VAI | Volcanic Activity Index  |  Uint8     |      0-100             |            0       |                            
-|  DCS     |    DCS Image       |           24-bit color  |  n/a       |                    0         |                          
-|  SO2I    |    SO2 Index        |          Int8      |      n/a            |               0          |                         
-|  AshI    |    Ash Index         |         Int8       |     n/a            |               0         |                          
-|  Anom |       Anomaly Detection    |     Int8      |      n/a            |               0         |                          
-|  Tbkg  |      Background Temperature   |  Float32  |       K              |               0          |                         
-|  Tele   |     Elevated Temperature    |   Float32    |     K             |                0           |                        
-|  HF      |    Heat Flux          |        Float32  |       MW             |               0            |                       
-|  SO2-PBL  |   SO2 Column Density - PBL |  Float32   |      g/m^2^        |                0             |                      
-|  SO2-TRL  |   SO2 Column Density - TRL |  Float32  |       g/m^2^         |               0                                   
-|  SO2-TRM  |   SO2 Column Density - TRM  | Float32  |       g/m^2^          |              0       |                            
-|  SO2-STL  |   SO2 Column Density - STL |  Float32   |      g/m^2^           |             0       |                            
-|  SO2-U    |   SO2 Uncertainty    |        Float32   |      g/m^2^            |            0        |                           
-|  DQ      |    Data Quality       |        Int8       |     n/a                |           0         |                          
+|  VAI | Volcanic Activity Index  |  Uint8     |   0-100     |        |            0       |                            
+|  DCS     |    DCS Image       |           24-bit color  |  n/a   |    |                    0         |                          
+|  SO2I    |    SO2 Index        |          Int8      |      n/a      |      |               0          |                         
+|  AshI    |    Ash Index         |         Int8       |     n/a       |     |               0         |                          
+|  Anom |       Anomaly Detection    |     Int8      |      n/a      |      |               0         |                          
+|  Tbkg  |      Background Temperature   |  Float32  |       K     |         |               0          |                         
+|  Tele   |     Elevated Temperature    |   Float32    |     K      |       |                0           |                        
+|  HF      |    Heat Flux          |        Float32  |       MW      |       |               0            |                       
+|  SO2-PBL  |   SO2 Column Density - PBL |  Float32   |      g/m^2^  |      |                0             |                      
+|  SO2-TRL  |   SO2 Column Density - TRL |  Float32  |       g/m^2^     |    |               0                                   
+|  SO2-TRM  |   SO2 Column Density - TRM  | Float32  |       g/m^2^   |       |              0       |                            
+|  SO2-STL  |   SO2 Column Density - STL |  Float32   |      g/m^2^    |       |             0       |                            
+|  SO2-U    |   SO2 Uncertainty    |        Float32   |      g/m^2^    |        |            0        |                           
+|  DQ      |    Data Quality       |        Int8       |     n/a       |         |           0         |                          
+
+*Table 4. The Scientific Data Sets (SDSs) for the SBG L4 VA product.*
 
 # Calibration/Validation Plans
 
@@ -388,21 +395,17 @@ A more rigorous validation is the intercomparison of retrievals from different i
 
 Mount Etna will be the principal site for validation of our OTTER SO~2~ retrievals. We will leverage the exceptional satellite data processing and ground-based monitoring resources of the National Institute of Geophysics and Volcanology (INGV), as described recently by Corradini et al. (2020; 2021). We will access the near real time (NRT) SO2 retrievals derived from SEVIRI
 
+![image](media/image20.png) 
 
-  ![](./media/image20.emf){width="3.4935903324584427in" height="6.281944444444444in"}
-
-  **Figure 15. Validation of retrieval procedures through inter-comparison of results from different instruments. SO~2~ retrievals based on (a) VIIRS-SNPP and (b) MODIS night-time observations of the Bardarbunga plume are virtually identical. The column density estimates were derived from observations acquired within a 10-min interval on 5 Sept 2014. For both sets of retrievals, the ambient atmospheric conditions were described with AIRS L2 profiles.**
-
-
+*Figure 15. Validation of retrieval procedures through inter-comparison of results from different instruments. SO2 retrievals based on (a) VIIRS-SNPP and (b) MODIS night-time observations of the Bardarbunga plume are virtually identical. The column density estimates were derived from observations acquired within a 10-min interval on 5 Sept 2014. For both sets of retrievals, the ambient atmospheric conditions were described with AIRS L2 profiles.*
 
 data, which flies on the geostationary Meteosat Second Generation (MSG) platform, and Flux
 
 Automatic Measurements (FLAME) network of upward-looking UV spectrometers installed on the flanks of Mount Etna. The SEVIRI observations are acquired every 15 min (Fig. 15), and INGV estimates SO~2~ column density, ash loading, and plume height continuously from the SEVIRI TIR radiance measurements. The FLAME network scans the sky every five minutes over day-time periods of \~9 h. This continuous monitoring ensures that we will have SEVIRI and FLAME coverage for all our daytime overpasses of Mount Etna (weather and viewing conditions permitting), and SERIVI coverage for night-time overpasses.
 
+![image](media/image20.png) 
 
-  **Figure 16. Inter-comparison of SO~2~ retrievals based on TIR data from SEVIRI, MODIS, VIIRS, AIRS, and IASI and UV data from TROPOMI. The study covered a four-day period (26 -- 30 December 2018) during the 2018 'Christmas' Eruption of Mt. Etna. The VIIRS-based retrievals (blue squares), generated with Plume Tracker, are in excellent agreement with the retrievals based on near-continuous observations from the geostationary SEVIRI instrument (gray bars). Figure modified from Corradini et al. (2021).**
-
-
+*Figure 16. Inter-comparison of SO2 retrievals based on TIR data from SEVIRI, MODIS, VIIRS, AIRS, and IASI and UV data from TROPOMI. The study covered a four-day period (26 – 30 December 2018) during the 2018 ‘Christmas’ Eruption of Mt. Etna. The VIIRS-based retrievals (blue squares), generated with Plume Tracker, are in excellent agreement with the retrievals based on near-continuous observations from the geostationary SEVIRI instrument (gray bars). Figure modified from Corradini et al. (2021).*
 
 ## Standard Metadata
 
@@ -410,7 +413,10 @@ Each SBG product bundle contains two sets of product metadata:
 -   ProductMetadata
 -   StandardMetadata
 
-Each product contains a custom set of `ProductMetadata` attributes, as listed in Table 8. The `StandardMetadata` attributes are consistent across products at each orbit/scene, as listed in Table 9.
+
+Each product contains a custom set of `ProductMetadata` attributes, as listed in Table 5. Information on the standard product metadata is included on the [SBG-TIR github landing page[](https://github.com/sbg-tir)
+
+
 | **Name** | **Type** |
 | --- | --- |
 | AncillaryInputPointer | string |
@@ -460,7 +466,7 @@ Each product contains a custom set of `ProductMetadata` attributes, as listed in
 | StopOrbitNumber | string |
 | WestBoundingCoordinate | float |
 
-*Table 8. Name and type of metadata fields contained in the common StandardMetadata group in each L2T/L3T/L4T product.*
+*Table 5. Name and type of metadata fields contained in the common StandardMetadata group in each L2T/L3T/L4T product.*
 
 | **Name** | **Type** |
 | --- | --- |
@@ -471,8 +477,7 @@ Each product contains a custom set of `ProductMetadata` attributes, as listed in
 | QAPercentGoodQuality | float |
 | AuxiliaryNWP | string |
 
-*Table 9. Name and type of metadata fields contained in the common ProductMetadata group in each L2T/L3T/L4T product.*
-
+*Table 6. Name and type of metadata fields contained in the common ProductMetadata group in each L2T/L3T/L4T product.*
 
 
 
