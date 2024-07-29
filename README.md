@@ -158,9 +158,9 @@ Unlike a conventional LUT, the hash table is generated dynamically, and the numb
 
 ### Reconstruction of Radiance Spectra 
 
-Surface temperature and emissivity can vary widely within a satellite scene and, to promote the re-use of cached spectra, we exclude surface temperature and emissivity in the generation of hash tables. For a line-of-sight (LOS) through the atmosphere (Fig. 4), the observed TIR radiance, $$L_s$$, can be described with a simplified version of Eq. 1:
+Surface temperature and emissivity can vary widely within a satellite scene and, to promote the re-use of cached spectra, we exclude surface temperature and emissivity in the generation of hash tables. For a line-of-sight (LOS) through the atmosphere (Fig. 4), the observed TIR radiance, $$\text{L}_s$$, can be described with a simplified version of Eq. 1:
 
-$$Q_{\text{con}} = h \cdot A \cdot \left(T_{\text{s}} - T_{\text{a}}\right)$$
+$$\text{L}_s(\lambda, T_o) = \left\{ \text{ε}(\lambda) \text{B}(\lambda, T_o) + [1 - \text{ε}(\lambda)] \text{L}_d(\lambda) \right\} \text{τ}(\lambda) + \text{L}_u(\lambda)$$
 
 where \(T_{\text{o}}\) represents the surface temperature, ε(λ) represents the surface emissivity, B(λ, T~o~) represents the Planck Blackbody function, τ(λ) represents the spectral transmittance of the atmosphere, and $$ \text{L}_{\text{u}}(\lambda) $$ and $$ \text{L}_{\text{d}}(\lambda) $$ represent the upwelling path and downwelling sky radiance produced by the atmosphere. To simplify notation, we have omitted the functional dependence of these parameters on the VZA, and note that τ(λ), $$ \text{L}_{\text{u}}(\lambda) $$, and $$ \text{L}_{\text{d}}(\lambda) $$ are integrals over the LOS.
 
