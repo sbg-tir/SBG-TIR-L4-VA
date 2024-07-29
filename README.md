@@ -65,19 +65,25 @@ It is expected that small adjustments to the band positions, widths, and transmi
 ### 2.2. Radiometer
 The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS with 256 pixels in the cross-whisk direction for each spectral channel. As the spacecraft moves forward, the scan mirror sweeps the focal plane image 68.8° across nadir in the cross-track direction, which enables a wide swath (935 km) from the spacecraft altitude of ~700 km. Each sweep is 256-pixels wide with the different spectral bands are swept across a given point on the ground sequentially. The scan mirror rotates at a constant angular speed and images two on-board blackbody targets at 300 K and 340 K with each cross-track sweep every 1.29 seconds to provide gain and offset cali-brations.
 
-| **Spectral** |
+| **Spectral** | **Measurement Characteristics** | 
 | --- | --- |
 | Bands (µm) | 4, 4.8, 8.32, 8.63, 9.07, 10.3, 11.35, 12.05 |
 | Bandwidth (nm) | 20, 150, 300, 300, 300, 300, 500, 500 |
 | Accuracy at 300 K | <0.01 µm |
-| **Radiometric** |
+
+*Table 3a.*
+
+| **Radiometric** | **Measurement Characteristics** | 
 | --- | --- |
 | Range | TIR bands (200 - 500 K)<br> 4 micron band (700 -1200 K)<br> 4.8 micron band (400 - 800 K |
 | Resolution | < 0.05 K, linear quantization to 14 bits |
 | Accuracy | \< 0.5 K 3-sigma at 275 K |
 | Precision (NEdT) | < 0.2 K |
 | Linearity | >99% characterized to 0.1 % |
-| **Spatial** |
+
+*Table 3b.*
+
+| **Spatial** | **Measurement Characteristics** | 
 | --- | --- |
 | IFOV | 60m |
 | MTF | >0.65 at FNy |
@@ -88,18 +94,31 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Down Track Samples | 256 |
 | Band to Band Co-Registration | 0.2 pixels (12 m) |
 | Pointing Knowledge | 10 arcsec (0.5 pixels) (approximate value, currently under evaluation) |
-| **Temporal** |
+
+*Table 3c.*
+
+
+| **Temporal** | **Measurement Characteristics** | 
 | --- | --- |
 | Orbit Crossing | Multiple |
 | Global Land Repeat | Multiple |
-| **On Orbit Calibration**   
+
+*Table 3d.*
+
+| **On Orbit Calibration**   | **Measurement Characteristics** | 
 | --- | --- |
 | Lunar views | 1 per month {radiometric} |
 | Blackbody views | 1 per scan {radiometric} |
 | Deep Space views | 1 per scan {radiometric} |
 | Surface Cal Experiments | 2 (day/night) every 5 days {radiometric} |
 | Spectral Surface Cal Experiments | 1 per year |
-| **Data Collection** |
+
+*Table 3e.*
+
+*Table 3a-e. SBG TIR instrument and measurement characteristics.*
+
+
+| **Data Collection** | **Measurement Characteristics** | 
 | --- | --- |
 | Time Coverage | Day and Night |
 | Land Coverage | Land surface above sea level |
