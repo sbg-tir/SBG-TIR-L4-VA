@@ -71,6 +71,7 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Bandwidth (nm) | 20, 150, 300, 300, 300, 300, 500, 500 |
 | Accuracy at 300 K | <0.01 µm |
 
+*Table 3a.*
 
 | **Radiometric** | **Measurement Characteristics** | 
 | --- | --- |
@@ -80,6 +81,7 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Precision (NEdT) | < 0.2 K |
 | Linearity | >99% characterized to 0.1 % |
 
+*Table 3b.*
 
 | **Spatial** | **Measurement Characteristics** | 
 | --- | --- |
@@ -93,11 +95,15 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Band to Band Co-Registration | 0.2 pixels (12 m) |
 | Pointing Knowledge | 10 arcsec (0.5 pixels) (approximate value, currently under evaluation) |
 
+*Table 3c.*
+
+
 | **Temporal** | **Measurement Characteristics** | 
 | --- | --- |
 | Orbit Crossing | Multiple |
 | Global Land Repeat | Multiple |
 
+*Table 3d.*
 
 | **On Orbit Calibration**   | **Measurement Characteristics** | 
 | --- | --- |
@@ -106,6 +112,10 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Deep Space views | 1 per scan {radiometric} |
 | Surface Cal Experiments | 2 (day/night) every 5 days {radiometric} |
 | Spectral Surface Cal Experiments | 1 per year |
+
+*Table 3e.*
+
+*Table 3a-e. SBG TIR instrument and measurement characteristics.*
 
 
 | **Data Collection** | **Measurement Characteristics** | 
