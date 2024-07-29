@@ -70,6 +70,8 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Bands (µm) | 4, 4.8, 8.32, 8.63, 9.07, 10.3, 11.35, 12.05 |
 | Bandwidth (nm) | 20, 150, 300, 300, 300, 300, 500, 500 |
 | Accuracy at 300 K | <0.01 µm |
+
+
 | **Radiometric** |
 | --- | --- |
 | Range | TIR bands (200 - 500 K)<br> 4 micron band (700 -1200 K)<br> 4.8 micron band (400 - 800 K |
@@ -77,6 +79,8 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Accuracy | \< 0.5 K 3-sigma at 275 K |
 | Precision (NEdT) | < 0.2 K |
 | Linearity | >99% characterized to 0.1 % |
+
+
 | **Spatial** |
 | --- | --- |
 | IFOV | 60m |
@@ -88,10 +92,14 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Down Track Samples | 256 |
 | Band to Band Co-Registration | 0.2 pixels (12 m) |
 | Pointing Knowledge | 10 arcsec (0.5 pixels) (approximate value, currently under evaluation) |
+
+
 | **Temporal** |
 | --- | --- |
 | Orbit Crossing | Multiple |
 | Global Land Repeat | Multiple |
+
+
 | **On Orbit Calibration**   
 | --- | --- |
 | Lunar views | 1 per month {radiometric} |
@@ -99,6 +107,8 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Deep Space views | 1 per scan {radiometric} |
 | Surface Cal Experiments | 2 (day/night) every 5 days {radiometric} |
 | Spectral Surface Cal Experiments | 1 per year |
+
+
 | **Data Collection** |
 | --- | --- |
 | Time Coverage | Day and Night |
