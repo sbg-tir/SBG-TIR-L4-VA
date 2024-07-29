@@ -133,7 +133,7 @@ Our global mapping strategy will leverage key technological innovations develope
 *Figure 3. Plume detection through transmission [t(λ)] based on the attenuation of surface radiance [ε(λ) B(λ,To)] passing through the plume enroute to the sensor:*
 
 
-$$L_s(\lambda, T_o) = \varepsilon(\lambda) B(\lambda, T_o) + [1 - \varepsilon(\lambda)] L_d(\lambda) \tau(\lambda) + L_u(\lambda)$$
+$$L(A, T_0) = f(\alpha) B(\alpha, T_0) + [1 - \alpha(\alpha)] D(0)^{\alpha}(T_0) + U(\lambda)$$
 
 The observed radiance [L(λ,To ); outlined arrow] includes the surface radiance (red arrow), reflected downwelling sky radiance [D(λ), yellow arrow], and upwelling path radiance [U(λ), blue arrow]
 Reconstruct Observed Radiance:
@@ -160,7 +160,7 @@ Unlike a conventional LUT, the hash table is generated dynamically, and the numb
 
 Surface temperature and emissivity can vary widely within a satellite scene and, to promote the re-use of cached spectra, we exclude surface temperature and emissivity in the generation of hash tables. For a line-of-sight (LOS) through the atmosphere (Fig. 4), the observed TIR radiance, $$\text{L}_s$$, can be described with a simplified version of Eq. 1:
 
-$$\text{L}_s(\lambda, T_o) = \left\{ \text{ε}(\lambda) \text{B}(\lambda, T_o) + [1 - \text{ε}(\lambda)] \text{L}_d(\lambda) \right\} \text{τ}(\lambda) + \text{L}_u(\lambda)$$
+$$L_s(\lambda, T_o) = \varepsilon(\lambda) B(\lambda, T_o) + [1 - \varepsilon(\lambda)] L_d(\lambda) \tau(\lambda) + L_u(\lambda)$$
 
 where \(T_{\text{o}}\) represents the surface temperature, ε(λ) represents the surface emissivity, B(λ, T~o~) represents the Planck Blackbody function, τ(λ) represents the spectral transmittance of the atmosphere, and $$ \text{L}_{\text{u}}(\lambda) $$ and $$ \text{L}_{\text{d}}(\lambda) $$ represent the upwelling path and downwelling sky radiance produced by the atmosphere. To simplify notation, we have omitted the functional dependence of these parameters on the VZA, and note that τ(λ), $$ \text{L}_{\text{u}}(\lambda) $$, and $$ \text{L}_{\text{d}}(\lambda) $$ are integrals over the LOS.
 
