@@ -343,7 +343,7 @@ The temperature estimation procedure is weighted to prevent underestimates (Fig.
 The SO2 estimates are very sensitive to the temperature contrast (Fig. 12c). The errors increase (up to 40%) with decreasing plume height, which results in decreasing temperature contrast.
 
 
-![image](media/image17.png) 
+![image](media/image17.jpeg) 
 
 *Figure 12. Sensitivity of surface temperature (top row) and SO2 concentration (bottom row) to errors in our knowledge of plume height (left column) and atmospheric water vapor (right column). The true values for height and water vapor scaling factor are indicated with the vertical lines. We use plume height to parameterize the temperature contrast between the plume (assumed to be at ambient air temperature) and underlying surface. (a) The temperature estimation procedure is weighted to prevent underestimates, and the estimates are insensitive (± 0.4%) to the plume height. (b) Decreasing water vapor increases atmospheric transmission and lower surface temperatures are required to produce the observed radiance. Conversely, increasing water vapor decreases transmission and higher surface temperatures are required to produce the required radiance. However, the estimation errors are < 0.5%. (c) The SO2 estimates are very sensitive to the temperature contrast. The errors increase (up to 40%) with decreasing plume height, which results in decreasing temperature contrast. The errors decrease (< 20%) with increasing plume height, which results increasing temperature contrast. (d) The apparent decrease surface temperature due to decreasing water vapor increases the SO2 estimates. Conversely, the apparent increase in surface temperature due to increasing water vapor decreases the SO2 estimates. The maximum estimation error approaches 20% but is generally < 10%.*
 
@@ -363,7 +363,7 @@ The results of degradation in instrument performance on-orbit are shown in figur
 
 ![image](media/image19.png) 
 
-*Figure 14: The algorithm detection precision and accuracy changes in ASTAD and ASTAD-ML as a result of OTTER instrument on-orbit performance degradation. *
+*Figure 14: The algorithm detection precision and accuracy changes in ASTAD and ASTAD-ML as a result of OTTER instrument on-orbit performance degradation.*
 
 2.  **Total Uncertainty**
 
@@ -408,7 +408,7 @@ data, which flies on the geostationary Meteosat Second Generation (MSG) platform
 
 Automatic Measurements (FLAME) network of upward-looking UV spectrometers installed on the flanks of Mount Etna. The SEVIRI observations are acquired every 15 min (Fig. 15), and INGV estimates SO2 column density, ash loading, and plume height continuously from the SEVIRI TIR radiance measurements. The FLAME network scans the sky every five minutes over day-time periods of \~9 h. This continuous monitoring ensures that we will have SEVIRI and FLAME coverage for all our daytime overpasses of Mount Etna (weather and viewing conditions permitting), and SERIVI coverage for night-time overpasses.
 
-![image](media/image20.png) 
+![image](media/image21.png) 
 
 *Figure 16. Inter-comparison of SO2 retrievals based on TIR data from SEVIRI, MODIS, VIIRS, AIRS, and IASI and UV data from TROPOMI. The study covered a four-day period (26 – 30 December 2018) during the 2018 ‘Christmas’ Eruption of Mt. Etna. The VIIRS-based retrievals (blue squares), generated with Plume Tracker, are in excellent agreement with the retrievals based on near-continuous observations from the geostationary SEVIRI instrument (gray bars). Figure modified from Corradini et al. (2021).*
 
@@ -486,11 +486,11 @@ Each product contains a custom set of `ProductMetadata` attributes, as listed in
 
 
 
-# Acknowledgements {#acknowledgements .unnumbered}
+#### Acknowledgements 
 
 The research was carried out at the Jet Propulsion Laboratory, California Institute of Technology, under a contract with the National Aeronautics and Space Administration.
 
-# References
+#### References
 
 Beirle, S., and others (2014), Estimating the volcanic emission rate and atmospheric lifetime of SO2 from space: a case study for Kīlauea volcano, Hawai\`i, *Atmos. Chem. Phys.*, 14(16), 8309--8322, doi:10.5194/acp-14-8309-2014.
 
