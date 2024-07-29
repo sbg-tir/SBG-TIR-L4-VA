@@ -115,8 +115,6 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 
 *Table 3e.*
 
-*Table 3a-e. SBG TIR instrument and measurement characteristics.*
-
 
 | **Data Collection** | **Measurement Characteristics** | 
 | --- | --- |
@@ -126,7 +124,9 @@ The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS
 | Open Ocean | n/a |
 | Compression | 2:1 lossless |
 
-*Table 3. SBG TIR instrument and measurement characteristics.*
+*Table 3f.*
+
+*Table 3a-f. SBG TIR instrument and measurement characteristics.*
 
 ##	3. Volcanic Plume Theory and Methodology
 ### 3.1. Thermal Infrared Remote Sensing of Volcanic Plumes
