@@ -133,7 +133,7 @@ Our global mapping strategy will leverage key technological innovations develope
 *Figure 3. Plume detection through transmission [t(λ)] based on the attenuation of surface radiance [ε(λ) B(λ,To)] passing through the plume enroute to the sensor:*
 
 
-$$L(A, T_0) = f(\alpha) B(\alpha, T_0) + [1 - \alpha(\alpha)] D(0)^{\alpha}(T_0) + U(\lambda)$$
+$$L_s(\lambda, T_o) = \varepsilon(\lambda) B(\lambda, T_o) + [1 - \varepsilon(\lambda)] L_d(\lambda) \tau(\lambda) + L_u(\lambda)$$
 
 The observed radiance [L(λ,To ); outlined arrow] includes the surface radiance (red arrow), reflected downwelling sky radiance [D(λ), yellow arrow], and upwelling path radiance [U(λ), blue arrow]
 Reconstruct Observed Radiance:
