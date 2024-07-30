@@ -20,6 +20,7 @@ University of Texas Austin
 This document outlines the theory and methodology for generating the OTTER Level-4 (L4) Volcanic Activity (VA) product. The VA product is only applied to a 50 km subset of the OTTER data centered on each of the world’s active and potentially active volcanoes (REFS). As such, it represents a small data volume. The VA uses the L2 land surface and emissivity (LSTE) product derived from the six TIR spectral bands to characterize the composition of volcanic plumes. The LSTE products are retrieved from the surface spectral radiance, which is obtained by atmospherically correcting the at-sensor spectral radiance. The VA also uses the L2 radiance at sensor product for the MIR and TIR to derive volcanic thermal flux.
 
 ## 2. Data Products
+
 ### 2.1. Metadata
 
 SBG-TIR standards incorporate additional metadata that describe each GeoTIFF Dataset within the GeoTIFF file. Each of these metadata elements appear in an GeoTIFF Attribute that is directly associated with the GeoTIFF Dataset. Wherever possible, these GeoTIFF Attributes employ names that conform to the Climate and Forecast (CF) conventions. 
@@ -29,7 +30,7 @@ Each SBG product bundle contains two sets of product metadata:
 -   StandardMetadata
 
 #### 2.1.1. Standard Metadata
-Each product contains a custom set of `ProductMetadata` attributes, as listed in Table 5. Information on the `StandardMetadata` is included on the [SBG-TIR github landing page](https://github.com/sbg-tir)
+Information on the `StandardMetadata` is included on the [SBG-TIR github landing page](https://github.com/sbg-tir)
 
 #### 2.1.2. Product Metadata
 
