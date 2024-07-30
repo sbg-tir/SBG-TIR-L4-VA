@@ -33,8 +33,6 @@ University of Texas Austin
 
 This document outlines the theory and methodology for generating the OTTER Level-4 (L4) Volcanic Activity (VA) product. The VA product is only applied to a 50 km subset of the OTTER data centered on each of the world’s active and potentially active volcanoes (REFS). As such, it represents a small data volume. The VA uses the L2 land surface and emissivity (LSTE) product derived from the six TIR spectral bands to characterize the composition of volcanic plumes. The LSTE products are retrieved from the surface spectral radiance, which is obtained by atmospherically correcting the at-sensor spectral radiance. The VA also uses the L2 radiance at sensor product for the MIR and TIR to derive volcanic thermal flux.
 
-The remainder of the document will include a description and background on the volcanic temperature and compositional modeling required for the VA product,  discuss numerical simulation studies and, finally, outline a validation plan.
-
 ## 2. SBG Intstrument Charactersitics 
 
 ### 2.1. Radiometer
