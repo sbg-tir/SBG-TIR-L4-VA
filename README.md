@@ -15,84 +15,96 @@ University of Pittsburgh
 University of Texas Austin
 
 
-## 1. Introduction to Data Products
-
-| **Instrument** | **Platform** | **Resolution (m)** | **Revisit (days)** | **Daytime overpass** | **TIR bands (8-12.5 µm)** | **Launch** |
-| --- | --- | --- | --- | --- | --- | --- |
-| OTTER | SBG | 60 | 3 | 12:30 | 6 | 2028 |
-| ECOSTRESS | ISS | 38 × 68 | 3-5 | Variable | 5 | 2018 |
-| LSTM |  | 50 | 16 | 10:30 | 5 | 2028 |
-| TRISHNA |  | 57 | 16 | 10:30 | 4 | 2025 |
-| ASTER | Terra | 90 | 16 | 10:30 | 16 | 1999 |
-| ETM+/TIRS | Landsat 7/8 | 60-100 | 16 | 10:11 | 1/2 | 1999/2013 |
-| VIIRS | Suomi-NPP | 750 | Daily | 1:30 / 13:30 | 4 | 2011 |
-| MODIS | Terra/Aqua | 1000 | Daily | 10:30 / 13:30 | 3 | 1999/2002 |
-| GOES | Multiple | 4000 | Daily | Every 15 min 2 | 2000 |
-
-*Table 1. SBG measurement characteristics compared to other operational and planned (*) spaceborne TIR instruments*
+## 1. Introduction
 
 This document outlines the theory and methodology for generating the OTTER Level-4 (L4) Volcanic Activity (VA) product. The VA product is only applied to a 50 km subset of the OTTER data centered on each of the world’s active and potentially active volcanoes (REFS). As such, it represents a small data volume. The VA uses the L2 land surface and emissivity (LSTE) product derived from the six TIR spectral bands to characterize the composition of volcanic plumes. The LSTE products are retrieved from the surface spectral radiance, which is obtained by atmospherically correcting the at-sensor spectral radiance. The VA also uses the L2 radiance at sensor product for the MIR and TIR to derive volcanic thermal flux.
 
-The remainder of the document will include a description and background on the volcanic temperature and compositional modeling required for the VA product,  discuss numerical simulation studies and, finally, outline a validation plan.
+## 2. Data Products
 
-## 2. SBG Intstrument Charactersitics 
+### 2.1. Metadata
 
-### 2.1. Radiometer
-The TIR instrument will operate as a push-whisk mapper very similar to ECOSTRESS with 256 pixels in the cross-whisk direction for each spectral channel. As the spacecraft moves forward, the scan mirror sweeps the focal plane image 68.8° across nadir in the cross-track direction, which enables a wide swath (935 km) from the spacecraft altitude of ~700 km. Each sweep is 256-pixels wide with the different spectral bands are swept across a given point on the ground sequentially. The scan mirror rotates at a constant angular speed and images two on-board blackbody targets at 300 K and 340 K with each cross-track sweep every 1.29 seconds to provide gain and offset calibrations.
+SBG-TIR standards incorporate additional metadata that describe each GeoTIFF Dataset within the GeoTIFF file. Each of these metadata elements appear in an GeoTIFF Attribute that is directly associated with the GeoTIFF Dataset. Wherever possible, these GeoTIFF Attributes employ names that conform to the Climate and Forecast (CF) conventions. 
 
+Each SBG product bundle contains two sets of product metadata:
+-   ProductMetadata
+-   StandardMetadata
 
-| **Radiometric** | **Measurement Characteristics** | 
-| --- | --- |
-| Range | TIR bands (200 - 500 K)<br> 4 micron band (700 -1200 K)<br> 4.8 micron band (400 - 800 K |
-| Resolution | < 0.05 K, linear quantization to 14 bits |
-| Accuracy | \< 0.5 K 3-sigma at 275 K |
-| Precision (NEdT) | < 0.2 K |
-| Linearity | >99% characterized to 0.1 % |
+#### 2.1.1. Standard Metadata
+Information on the `StandardMetadata` is included on the [SBG-TIR github landing page](https://github.com/sbg-tir)
 
-*Table 2a.*
+#### 2.1.2. Product Metadata
 
-| **Spatial** | **Measurement Characteristics** | 
-| --- | --- |
-| IFOV | 60m |
-| MTF | >0.65 at FNy |
-| Scan Type | Push-Whisk |
-| Swath Width at 665-km altitude | 935 km (+/- 34.4°) |
-| Cross Track Samples | 10,000 *(check)* |
-| Swath Length | 10,000 *(check)* |
-| Down Track Samples | 256 |
-| Band to Band Co-Registration | 0.2 pixels (12 m) |
-| Pointing Knowledge | 10 arcsec (0.5 pixels) (approximate value, currently under evaluation) |
+Any additional metadata necessary for describing the product will be recorded in this group.
 
-*Table 2b.*
+| **Name**               | **Type**       | **Size**   | **Example**               |
+| --- | --- | --- | --- |
+| QualityBitFlag         | String  | 255   | 01011011011               |
+| AvgETUncertainty       | LongFloat      | 8     |                           |
+| AncillaryFiles         | Int     | 4     | 100                       |
+| AncillaryFileAirTemperature                  | String  | 255   | CFSR_FILENAME_DATE        |
+| AncillaryFileALEXIETd  | String  | 255   | EDAY_V7NC_CFSRINSOL_2018200.dat                    |
+| AncillaryFileBadMask   | String  | 255   |                           |
+| AncillaryFileInsolation                      | String  | 255   | CFSR_FILENAME_DATE        |
+| AncillaryFileLandcover | String  | 255   | NLCD_FILENAME             |
+| AncillaryFileLST       | String  | 255   | LSTE_FILENAME             |
+| AncillaryFileMixingRatio                     | String  | 255   | CFSR_FILENAME_DATE        |
+| AncillaryFilePressure  | String  | 255   | CFSR_FILENAME_DATE        |
+| AncillaryFileSurfaceReflectance              | String  | 255   | LANDSAT_TARFILE_NAME      |
+| AncillaryFileSurfReflectanceFill             | String  | 255   |                           |
+| AncillaryFileWindSpeed | String  | 255   | CFSR_FILENAME_DATE        |
+| BandSpecification      | Float32 | 6     |                           |
+| Projection             | String  | 255   | (SBG-TIR or UTM)          |
+| Geotransform           | String  | 255   |                           |
+| OGC Well Known Text    | String  | variable   | Blank if Projection=SBG-TIR
+If Projection=UTM, EG:
+{PROJCS["UTM_Zone_11N",GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["False_Easting",500000.0],PARAMETER["False_Northing",0.0],PARAMETER["Central_Meridian",-117.0],PARAMETER["Scale_Factor",0.9996],PARAMETER["Latitude_Of_Origin",0.0],UNIT["Meter",1.0]]}
+| OveralVolcanicActivity | Float32 | 0-100 |                           |
+| MaximumTemperature     | Float32 | K     |                           |
+| Total Heat flux        | Float32 | MW    |                           |
+| TotalMassSO2           | Float32 | kg    |                           |
 
-| **Temporal** | **Measurement Characteristics** | 
-| --- | --- |
-| Orbit Crossing | Multiple |
-| Global Land Repeat | Multiple |
+*Table 1: Product Specific Metadata* 
 
-*Table 2c.*
+The product data will be stored in this group. Exact contents and layouts to be defined by each PGE and will conform to the GeoTIFF specifications.
 
-| **On Orbit Calibration**   | **Measurement Characteristics** | 
-| --- | --- |
-| Lunar views | 1 per month {radiometric} |
-| Blackbody views | 1 per scan {radiometric} |
-| Deep Space views | 1 per scan {radiometric} |
-| Surface Cal Experiments | 2 (day/night) every 5 days {radiometric} |
-| Spectral Surface Cal Experiments | 1 per year |
+|  **Field Name**        |   **TYPE**          |         **UNIT**   **Field Data**
+|  VolcanicActivityIndex  |  Uint8           |           0-100    |  |
+|  DCSImage         |        24-bit color       |        None     |  |
+|  SO2Index         |        Int8         |              None     |  |
+|  AshIndex         |        Int8           |            None     |  |
+|  Anomaly Detection    |    Int8          |             None   |    0 or 1 |
+|  Background Temperature |  Float32       |             Kelvin    |  |
+|  ElevatedTemperature   |  Float32         |           Kelvin   |  Temperature above background |
+|  Heat flux       |         Float32         |           MW      |   Only applied to anomalous pixels |
+|  SO2ColumnDensityPBL   |   Float32        |            g/m^2^   |  |
+|  SO2ColumnDensityTRL   |   Float32        |            g/m^2^    | | 
+|  SO2ColumnDensityTRM   |   Float32        |            g/m^2^     | |
+|  SO2ColumnDensitySTL   |   Float32        |            g/m^2^     | |
+|  SO2Uncertainty      |     Float32        |            g/m^2^     | |
+|  DataQuality      |        Int8            |                      | |
 
-*Table 2d.*
+*Table 2. Product Data Definitions*
 
-| **Data Collection** | **Measurement Characteristics** | 
-| --- | --- |
-| Time Coverage | Day and Night |
-| Land Coverage | Land surface above sea level |
-| Water Coverage | n/a |
-| Open Ocean | n/a |
-| Compression | 2:1 lossless |
+#### 2.2. Scientific Data Set (SDS) Variables
 
-*Table 2e.*
+|  **SDS** | **Long Name** | **Data type** | **Units** | **Valid Range** | **Fill Value** | **Scale Factor** | **Offset** |   **Group**  | **SDS** |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  VAI | Volcanic Activity Index  |  Uint8     |   0-100     |        |            0       |                            
+|  DCS     |    DCS Image       |           24-bit color  |  n/a   |    |                    0         |                          
+|  SO2I    |    SO2 Index        |          Int8      |      n/a      |      |               0          |                         
+|  AshI    |    Ash Index         |         Int8       |     n/a       |     |               0         |                          
+|  Anom |       Anomaly Detection    |     Int8      |      n/a      |      |               0         |                          
+|  Tbkg  |      Background Temperature   |  Float32  |       K     |         |               0          |                         
+|  Tele   |     Elevated Temperature    |   Float32    |     K      |       |                0           |                        
+|  HF      |    Heat Flux          |        Float32  |       MW      |       |               0            |                       
+|  SO2-PBL  |   SO2 Column Density - PBL |  Float32   |      g/m^2^  |      |                0             |                      
+|  SO2-TRL  |   SO2 Column Density - TRL |  Float32  |       g/m^2^     |    |               0                                   
+|  SO2-TRM  |   SO2 Column Density - TRM  | Float32  |       g/m^2^   |       |              0       |                            
+|  SO2-STL  |   SO2 Column Density - STL |  Float32   |      g/m^2^    |       |             0       |                            
+|  SO2-U    |   SO2 Uncertainty    |        Float32   |      g/m^2^    |        |            0        |                           
+|  DQ      |    Data Quality       |        Int8       |     n/a       |         |           0         |                          
 
-*Tables 2a-e. SBG TIR instrument and measurement characteristics.*
+*Table 3. The Scientific Data Sets (SDSs) for the SBG L4 VA product.*
 
 ##	3. Volcanic Plume Theory and Methodology
 ### 3.1. Thermal Infrared Remote Sensing of Volcanic Plumes
@@ -312,28 +324,6 @@ The results of degradation in instrument performance on-orbit are shown in figur
 
 *Figure 14: The algorithm detection precision and accuracy changes in ASTAD and ASTAD-ML as a result of OTTER instrument on-orbit performance degradation.*
 
-
-### 6. Scientific Data Set (SDS) Variables
-
-|  **SDS** | **Long Name** | **Data type** | **Units** | **Valid Range** | **Fill Value** | **Scale Factor** | **Offset** |   **Group**  | **SDS** |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-|  VAI | Volcanic Activity Index  |  Uint8     |   0-100     |        |            0       |                            
-|  DCS     |    DCS Image       |           24-bit color  |  n/a   |    |                    0         |                          
-|  SO2I    |    SO2 Index        |          Int8      |      n/a      |      |               0          |                         
-|  AshI    |    Ash Index         |         Int8       |     n/a       |     |               0         |                          
-|  Anom |       Anomaly Detection    |     Int8      |      n/a      |      |               0         |                          
-|  Tbkg  |      Background Temperature   |  Float32  |       K     |         |               0          |                         
-|  Tele   |     Elevated Temperature    |   Float32    |     K      |       |                0           |                        
-|  HF      |    Heat Flux          |        Float32  |       MW      |       |               0            |                       
-|  SO2-PBL  |   SO2 Column Density - PBL |  Float32   |      g/m^2^  |      |                0             |                      
-|  SO2-TRL  |   SO2 Column Density - TRL |  Float32  |       g/m^2^     |    |               0                                   
-|  SO2-TRM  |   SO2 Column Density - TRM  | Float32  |       g/m^2^   |       |              0       |                            
-|  SO2-STL  |   SO2 Column Density - STL |  Float32   |      g/m^2^    |       |             0       |                            
-|  SO2-U    |   SO2 Uncertainty    |        Float32   |      g/m^2^    |        |            0        |                           
-|  DQ      |    Data Quality       |        Int8       |     n/a       |         |           0         |                          
-
-*Table 4. The Scientific Data Sets (SDSs) for the SBG L4 VA product.*
-
 ### 7. Calibration/Validation Plans
 
 Plume Tracker, together with its predecessor MAP_SO2, are the heritage for the PGS. The retrieval procedures have been evaluated rigorously through simulation-based sensitivity analyses (Realmuto et al., 1994, 1997; Realmuto, 2000), multi-sensor comparisons (Realmuto and Worden, 2000; Kearney et al., 2009; Thomas et al., 2009, Realmuto and Berk, 2016; Corradini et al., 2021), and comparisons with ground-based measurements (Realmuto and Berk, 2016).
@@ -354,28 +344,6 @@ Automatic Measurements (FLAME) network of upward-looking UV spectrometers instal
 
 *Figure 16. Inter-comparison of SO2 retrievals based on TIR data from SEVIRI, MODIS, VIIRS, AIRS, and IASI and UV data from TROPOMI. The study covered a four-day period (26 – 30 December 2018) during the 2018 ‘Christmas’ Eruption of Mt. Etna. The VIIRS-based retrievals (blue squares), generated with Plume Tracker, are in excellent agreement with the retrievals based on near-continuous observations from the geostationary SEVIRI instrument (gray bars). Figure modified from Corradini et al. (2021).*
 
-## 8. Product information
-
-### 8.1. Standard and Local Metadata
-
-SBG-TIR standards incorporate additional metadata that describe each GeoTIFF Dataset within the GeoTIFF file. Each of these metadata elements appear in an GeoTIFF Attribute that is directly associated with the GeoTIFF Dataset. Wherever possible, these GeoTIFF Attributes employ names that conform to the Climate and Forecast (CF) conventions. 
-
-Each SBG product bundle contains two sets of product metadata:
--   ProductMetadata
--   StandardMetadata
-
-Each product contains a custom set of `ProductMetadata` attributes, as listed in Table 5. Information on the `StandardMetadata` is included on the [SBG-TIR github landing page](https://github.com/sbg-tir)
-
-| **Name** | **Type** |
-| --- | --- |
-| BandSpecification | float |
-| NumberOfBands | integer |
-| OrbitCorrectionPerformed | string |
-| QAPercentCloudCover | float |
-| QAPercentGoodQuality | float |
-| AuxiliaryNWP | string |
-
-*Table 6. Name and type of metadata fields contained in the common ProductMetadata group in each L2T/L3T/L4T product.*
 
 #### Acknowledgements 
 
